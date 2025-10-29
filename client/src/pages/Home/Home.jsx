@@ -107,7 +107,7 @@ const Home = () => {
     <div className="home">
       <section className="hero">
         <div className="hero-content">
-          <h1>Bienvenido a Restaurante Ecommerce</h1>
+          <h1>Bienvenido a El Rincón Digital</h1>
           <p>Descubre nuestros deliciosos platos y realiza tu pedido en línea</p>
           <Link to="/menu" className="cta-button">Ver Menú Completo</Link>
         </div>

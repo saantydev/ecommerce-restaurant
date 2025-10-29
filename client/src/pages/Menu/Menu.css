@@ -1,31 +1,53 @@
 .menu {
   min-height: 100vh;
   padding: 2rem 0;
-  background-color: #f8f9fa;
+  background-color: var(--color-secondary-dark);
+}
+
+.menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="menu-bg" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="1" fill="rgba(52, 152, 219, 0.03)"/><circle cx="45" cy="45" r="0.5" fill="rgba(39, 174, 96, 0.02)"/></pattern></defs><rect width="100" height="100" fill="url(%23menu-bg)"/></svg>');
+  opacity: 0.6;
 }
 
 .menu-header {
   text-align: center;
   margin-bottom: 3rem;
   padding: 0 1rem;
+  position: relative;
+  z-index: 2;
 }
 
 .menu-header h1 {
-  font-size: 3rem;
-  color: #2c3e50;
-  margin-bottom: 1rem;
-  font-weight: bold;
+  font-size: 3.5rem;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--text-dark), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .menu-header p {
-  font-size: 1.2rem;
-  color: #7f8c8d;
-  max-width: 600px;
+  font-size: 1.3rem;
+  color: #6c757d;
+  max-width: 700px;
   margin: 0 auto;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 .menu-content {
   padding: 0 1rem;
+  position: relative;
+  z-index: 2;
 }
 
 .container {
@@ -36,14 +58,28 @@
 .filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
   align-items: center;
   justify-content: space-between;
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.filters::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
 }
 
 .search-bar {
