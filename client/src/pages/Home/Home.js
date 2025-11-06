@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../../components/Header/Header';
-import ProductCard from '../../components/Product/ProductCard';
+
+import Hero from '../../components/Hero/Hero';
+import OffersSlider from '../../components/OffersSlider/OffersSlider';
+import ProductCard from '../../components/ProductCard/ProductCard';
 import Cart from '../../components/Cart/Cart';
 import { useCart } from '../../context/CartContext';
-import './Home.css';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -65,39 +66,48 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className="loading">
-        <div className="spinner"></div>
-        <p>Cargando productos...</p>
+      <div className="min-h-screen bg-secondary-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
+          <p className="text-secondary-600">Cargando productos...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="home">
-      <Header 
-        onSearch={handleSearch}
-        onCategoryFilter={handleCategoryFilter}
-      />
+    <div>
+      {/* Offers Slider */}
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <OffersSlider />
+      </div>
       
-      <main className="main-content">
-        <div className="container">
-          {/* Hero Section */}
-          <section className="hero">
-            <div className="hero-content">
-              <h1>🐾 Todo para tu Mascota</h1>
-              <p>Encuentra los mejores productos para el cuidado y diversión de tu compañero fiel</p>
-            </div>
-          </section>
-
+      <Hero />
+      
+      <main className="py-16">
+        <div className="max-w-7xl mx-auto px-4">
           {/* Productos Destacados */}
           {featuredProducts.length > 0 && (
-            <section className="featured-section">
-              <h2>⭐ Productos Destacados</h2>
-              <div className="products-grid featured-grid">
+            <section className="mb-16">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-secondary-800 mb-4">⭐ Productos Destacados</h2>
+                <p className="text-secondary-600 max-w-2xl mx-auto">Los favoritos de nuestros clientes y sus mascotas</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {featuredProducts.map(product => (
                   <ProductCard
                     key={product.id}
-                    product={product}
+                    product={{
+                      ...product,
+                      name: product.nombre,
+                      description: product.descripcion,
+                      category: product.categoria,
+                      price: product.precio,
+                      stock: product.stock,
+                      discount: product.descuento_porcentaje,
+                      originalPrice: product.precio_oferta ? product.precio : null,
+                      image: product.imagen
+                    }}
                     onAddToCart={handleAddToCart}
                   />
                 ))}
@@ -106,19 +116,34 @@ const Home = () => {
           )}
 
           {/* Todos los Productos */}
-          <section className="products-section">
-            <h2>Todos los Productos</h2>
+          <section>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-secondary-800 mb-4">Todos los Productos</h2>
+              <p className="text-secondary-600 max-w-2xl mx-auto">Explora nuestra colección completa</p>
+            </div>
+            
             {filteredProducts.length === 0 ? (
-              <div className="no-products">
-                <p>No se encontraron productos</p>
-                <span>🔍</span>
+              <div className="text-center py-16">
+                <div className="text-6xl mb-4">🔍</div>
+                <h3 className="text-xl font-semibold text-secondary-700 mb-2">No se encontraron productos</h3>
+                <p className="text-secondary-500">Intenta con otros términos de búsqueda</p>
               </div>
             ) : (
-              <div className="products-grid">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {regularProducts.map(product => (
                   <ProductCard
                     key={product.id}
-                    product={product}
+                    product={{
+                      ...product,
+                      name: product.nombre,
+                      description: product.descripcion,
+                      category: product.categoria,
+                      price: product.precio,
+                      stock: product.stock,
+                      discount: product.descuento_porcentaje,
+                      originalPrice: product.precio_oferta ? product.precio : null,
+                      image: product.imagen
+                    }}
                     onAddToCart={handleAddToCart}
                   />
                 ))}
@@ -128,10 +153,7 @@ const Home = () => {
         </div>
       </main>
 
-      <Cart 
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-      />
+      <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 };

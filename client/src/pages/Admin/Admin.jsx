@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './Admin.css'
+
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState('products')

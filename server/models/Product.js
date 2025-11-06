@@ -11,16 +11,15 @@ class Product {
           p.descripcion_corta,
           p.precio,
           p.precio_oferta,
+          p.descuento_porcentaje,
           p.destacado,
+          p.imagen,
+          p.stock,
           c.nombre as categoria,
-          m.nombre as marca,
-          pi.url as imagen,
-          i.disponible as stock
+          m.nombre as marca
         FROM productos p
         LEFT JOIN categorias c ON p.categoria_id = c.id
         LEFT JOIN marcas m ON p.marca_id = m.id
-        LEFT JOIN producto_imagenes pi ON p.id = pi.producto_id AND pi.es_principal = TRUE
-        LEFT JOIN inventario i ON p.id = i.producto_id
         WHERE p.activo = TRUE
         ORDER BY p.destacado DESC, p.created_at DESC
       `);
@@ -37,12 +36,10 @@ class Product {
         SELECT 
           p.*,
           c.nombre as categoria,
-          m.nombre as marca,
-          i.disponible as stock
+          m.nombre as marca
         FROM productos p
         LEFT JOIN categorias c ON p.categoria_id = c.id
         LEFT JOIN marcas m ON p.marca_id = m.id
-        LEFT JOIN inventario i ON p.id = i.producto_id
         WHERE p.id = ? AND p.activo = TRUE
       `, [id]);
       return rows[0];
@@ -61,14 +58,13 @@ class Product {
           p.descripcion,
           p.precio,
           p.precio_oferta,
+          p.descuento_porcentaje,
           p.destacado,
-          c.nombre as categoria,
-          pi.url as imagen,
-          i.disponible as stock
+          p.imagen,
+          p.stock,
+          c.nombre as categoria
         FROM productos p
         JOIN categorias c ON p.categoria_id = c.id
-        LEFT JOIN producto_imagenes pi ON p.id = pi.producto_id AND pi.es_principal = TRUE
-        LEFT JOIN inventario i ON p.id = i.producto_id
         WHERE c.nombre = ? AND p.activo = TRUE
         ORDER BY p.destacado DESC
       `, [categoryName]);
@@ -88,14 +84,13 @@ class Product {
           p.descripcion,
           p.precio,
           p.precio_oferta,
+          p.descuento_porcentaje,
           p.destacado,
-          c.nombre as categoria,
-          pi.url as imagen,
-          i.disponible as stock
+          p.imagen,
+          p.stock,
+          c.nombre as categoria
         FROM productos p
         LEFT JOIN categorias c ON p.categoria_id = c.id
-        LEFT JOIN producto_imagenes pi ON p.id = pi.producto_id AND pi.es_principal = TRUE
-        LEFT JOIN inventario i ON p.id = i.producto_id
         WHERE p.destacado = TRUE AND p.activo = TRUE
       `);
       return rows;
@@ -114,14 +109,13 @@ class Product {
           p.descripcion,
           p.precio,
           p.precio_oferta,
+          p.descuento_porcentaje,
           p.destacado,
-          c.nombre as categoria,
-          pi.url as imagen,
-          i.disponible as stock
+          p.imagen,
+          p.stock,
+          c.nombre as categoria
         FROM productos p
         LEFT JOIN categorias c ON p.categoria_id = c.id
-        LEFT JOIN producto_imagenes pi ON p.id = pi.producto_id AND pi.es_principal = TRUE
-        LEFT JOIN inventario i ON p.id = i.producto_id
         WHERE (p.nombre LIKE ? OR p.descripcion LIKE ? OR p.descripcion_corta LIKE ?)
           AND p.activo = TRUE
         ORDER BY p.destacado DESC

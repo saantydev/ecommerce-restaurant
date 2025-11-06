@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
-import './Checkout.css';
+
 
 const Checkout = () => {
   const { items, getCartTotal, clearCart } = useCart();
@@ -27,7 +27,7 @@ const Checkout = () => {
 
   const subtotal = getCartTotal();
   const impuestos = subtotal * 0.21;
-  const envio = subtotal > 50000 ? 0 : 5000; // Envío gratis por compras mayores a $50.000
+  const envio = subtotal > 120000 ? 0 : 5000; // Envío gratis por compras mayores a $120.000
   const total = subtotal + impuestos + envio;
 
   const handleInputChange = (e) => {

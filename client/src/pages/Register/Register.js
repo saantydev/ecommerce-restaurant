@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import './Register.css';
+
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -52,94 +52,144 @@ const Register = () => {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-container">
-        <div className="auth-header">
-          <h1>🐾 PetShop</h1>
-          <h2>Crear Cuenta</h2>
-        </div>
-
-        <form onSubmit={handleSubmit} className="auth-form">
-          {error && <div className="error-message">{error}</div>}
-          
-          <div className="form-group">
-            <label htmlFor="nombre">Nombre Completo</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              value={formData.nombre}
-              onChange={handleChange}
-              required
-            />
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 flex items-center justify-center py-12 px-4">
+      <div className="max-w-md w-full">
+        <div className="bg-white rounded-2xl shadow-xl p-8">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 bg-primary-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <span className="text-white text-2xl font-bold">🐾</span>
+            </div>
+            <h1 className="text-2xl font-bold text-secondary-800 mb-2">Crear cuenta</h1>
+            <p className="text-secondary-600">Regístrate para comenzar</p>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
+            
+            <div className="space-y-2">
+              <label htmlFor="nombre" className="text-sm font-medium text-secondary-700">
+                Nombre Completo
+              </label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                value={formData.nombre}
+                onChange={handleChange}
+                className="input"
+                placeholder="Juan Pérez"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="email" className="text-sm font-medium text-secondary-700">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="input"
+                placeholder="tu@email.com"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="telefono" className="text-sm font-medium text-secondary-700">
+                Teléfono
+              </label>
+              <input
+                type="tel"
+                id="telefono"
+                name="telefono"
+                value={formData.telefono}
+                onChange={handleChange}
+                className="input"
+                placeholder="+54 11 1234-5678"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="direccion" className="text-sm font-medium text-secondary-700">
+                Dirección
+              </label>
+              <textarea
+                id="direccion"
+                name="direccion"
+                value={formData.direccion}
+                onChange={handleChange}
+                className="input resize-none"
+                rows="2"
+                placeholder="Calle, número, ciudad..."
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="password" className="text-sm font-medium text-secondary-700">
+                Contraseña
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="input"
+                placeholder="Mínimo 6 caracteres"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="confirmPassword" className="text-sm font-medium text-secondary-700">
+                Confirmar Contraseña
+              </label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="input"
+                placeholder="Repite tu contraseña"
+                required
+              />
+            </div>
+
+            <button 
+              type="submit" 
+              disabled={loading} 
+              className="w-full btn btn-primary mt-6"
+            >
+              {loading ? 'Creando cuenta...' : 'Crear Cuenta'}
+            </button>
+          </form>
+
+          {/* Footer */}
+          <div className="mt-6 text-center space-y-4">
+            <p className="text-secondary-600">
+              ¿Ya tienes cuenta?{' '}
+              <a href="/login" className="text-primary-500 hover:text-primary-600 font-medium">
+                Inicia sesión aquí
+              </a>
+            </p>
+            <a 
+              href="/" 
+              className="text-secondary-500 hover:text-secondary-700 text-sm transition-colors"
+            >
+              ← Volver al inicio
+            </a>
           </div>
-
-          <div className="form-group">
-            <label htmlFor="telefono">Teléfono</label>
-            <input
-              type="tel"
-              id="telefono"
-              name="telefono"
-              value={formData.telefono}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="direccion">Dirección</label>
-            <textarea
-              id="direccion"
-              name="direccion"
-              value={formData.direccion}
-              onChange={handleChange}
-              rows="3"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Contraseña</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirmar Contraseña</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <button type="submit" disabled={loading} className="auth-btn">
-            {loading ? 'Creando cuenta...' : 'Crear Cuenta'}
-          </button>
-        </form>
-
-        <div className="auth-footer">
-          <p>¿Ya tienes cuenta? <a href="/login">Inicia sesión aquí</a></p>
-          <a href="/">Volver al inicio</a>
         </div>
       </div>
     </div>

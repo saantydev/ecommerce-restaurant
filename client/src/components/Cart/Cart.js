@@ -1,6 +1,5 @@
 import React from 'react';
 import { useCart } from '../../context/CartContext';
-import './Cart.css';
 
 const Cart = ({ isOpen, onClose }) => {
   const { items, updateQuantity, removeFromCart, getCartTotal } = useCart();

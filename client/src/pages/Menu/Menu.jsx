@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useCart } from '../../context/CartContext'
 import ProductCard from '../../components/Product/ProductCard'
-import './Menu.css'
+
 
 const Menu = () => {
   const [products, setProducts] = useState([])
